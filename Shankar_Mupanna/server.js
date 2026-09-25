@@ -19,6 +19,16 @@ app.use(express.urlencoded({ extended: true }));
 // Swagger UI Documentation Route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Root Endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Welcome to Event Management & Ticketing API',
+    documentation: `${req.protocol}://${req.get('host')}/api-docs`,
+    healthCheck: `${req.protocol}://${req.get('host')}/health`
+  });
+});
+
 // Health Check Route
 app.get('/health', (req, res) => {
   res.status(200).json({
